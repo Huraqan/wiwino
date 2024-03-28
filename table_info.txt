@@ -1,0 +1,131 @@
+
+
+Table: countries
+Columns:
+	NAME                    TYPE         NOTNULL DEFAULT   PRIMARY KEY
+	code                    VARCHAR      1       None      1    
+	name                    VARCHAR      0       None      0    
+	regions_count           INTEGER      0       None      0    
+	users_count             INTEGER      0       None      0    
+	wines_count             INTEGER      0       None      0    
+	wineries_count          INTEGER      0       None      0    
+
+Table: grapes
+Columns:
+	NAME                    TYPE         NOTNULL DEFAULT   PRIMARY KEY
+	id                      INTEGER      1       None      1    
+	name                    VARCHAR      0       None      0    
+
+Table: wineries
+Columns:
+	NAME                    TYPE         NOTNULL DEFAULT   PRIMARY KEY
+	id                      INTEGER      1       None      1    
+	name                    VARCHAR      0       None      0    
+
+Table: flavor_groups
+Columns:
+	NAME                    TYPE         NOTNULL DEFAULT   PRIMARY KEY
+	name                    VARCHAR      1       None      1    
+
+Table: keywords
+Columns:
+	NAME                    TYPE         NOTNULL DEFAULT   PRIMARY KEY
+	id                      INTEGER      1       None      1    
+	name                    VARCHAR      0       None      0    
+
+Table: regions
+Columns:
+	NAME                    TYPE         NOTNULL DEFAULT   PRIMARY KEY
+	id                      INTEGER      1       None      1    
+	name                    VARCHAR      0       None      0    
+	country_code            VARCHAR      0       None      0    
+Foreign Key Constraints:
+	COLUMN                  REFERENCES
+	country_code            countries.code
+
+Table: most_used_grapes_per_country
+Columns:
+	NAME                    TYPE         NOTNULL DEFAULT   PRIMARY KEY
+	id                      INTEGER      1       None      1    
+	country_code            VARCHAR      0       None      0    
+	grape_id                INTEGER      0       None      0    
+	wines_count             INTEGER      0       None      0    
+Foreign Key Constraints:
+	COLUMN                  REFERENCES
+	grape_id                grapes.id
+	country_code            countries.code
+
+Table: toplists
+Columns:
+	NAME                    TYPE         NOTNULL DEFAULT   PRIMARY KEY
+	id                      INTEGER      1       None      1    
+	name                    VARCHAR(255) 1       None      0    
+	country_code            VARCHAR      0       None      0    
+Foreign Key Constraints:
+	COLUMN                  REFERENCES
+	country_code            countries.code
+
+Table: wines
+Columns:
+	NAME                    TYPE         NOTNULL DEFAULT   PRIMARY KEY
+	id                      INTEGER      1       None      1    
+	name                    VARCHAR      0       None      0    
+	is_natural              BOOLEAN      0       None      0    
+	region_id               INTEGER      0       None      0    
+	winery_id               INTEGER      0       None      0    
+	ratings_average         FLOAT        0       None      0    
+	ratings_count           INTEGER      0       None      0    
+	url                     VARCHAR      0       None      0    
+	acidity                 FLOAT        0       None      0    
+	fizziness               FLOAT        0       None      0    
+	intensity               FLOAT        0       None      0    
+	sweetness               FLOAT        0       None      0    
+	tannin                  FLOAT        0       None      0    
+	user_structure_count    INTEGER      0       None      0    
+Foreign Key Constraints:
+	COLUMN                  REFERENCES
+	winery_id               wineries.id
+	region_id               regions.id
+
+Table: vintages
+Columns:
+	NAME                    TYPE         NOTNULL DEFAULT   PRIMARY KEY
+	id                      INTEGER      1       None      1    
+	name                    VARCHAR      0       None      0    
+	wine_id                 INTEGER      0       None      0    
+	ratings_average         FLOAT        0       None      0    
+	ratings_count           INTEGER      0       None      0    
+	year                    INTEGER      0       None      0    
+	price_euros             FLOAT        0       None      0    
+	price_discounted_from   FLOAT        0       None      0    
+	price_discount_percentageFLOAT        0       None      0    
+	bottle_volume_ml        INTEGER      0       None      0    
+Foreign Key Constraints:
+	COLUMN                  REFERENCES
+	wine_id                 wines.id
+
+Table: keywords_wine
+Columns:
+	NAME                    TYPE         NOTNULL DEFAULT   PRIMARY KEY
+	keyword_id              INTEGER      1       None      1    
+	wine_id                 INTEGER      1       None      2    
+	group_name              VARCHAR      1       None      3    
+	keyword_type            VARCHAR      0       None      0    
+	count                   INTEGER      0       None      0    
+Foreign Key Constraints:
+	COLUMN                  REFERENCES
+	wine_id                 wines.id
+	keyword_id              keywords.id
+
+Table: vintage_toplists_rankings
+Columns:
+	NAME                    TYPE         NOTNULL DEFAULT   PRIMARY KEY
+	id                      INTEGER      1       None      1    
+	top_list_id             INTEGER      0       None      0    
+	vintage_id              INTEGER      0       None      0    
+	rank                    INTEGER      0       None      0    
+	previous_rank           INTEGER      0       None      0    
+Foreign Key Constraints:
+	COLUMN                  REFERENCES
+	vintage_id              vintages.id
+	top_list_id             toplists.id
