@@ -13,7 +13,7 @@ The first thing to notice is that the (non-zero) ratings of both vintages and wi
 
 Current (fairly arbitrary) equation goes as follows:
 `Rating * LOG(Count * 0.001 - 3)`
-This equation makes sure that low popularity results in a very low or even negative score.
+This equation makes sure that low ratings count results in a very low or even negative score.
 So it is better to have a lower price, and even a lower rating, but high popularity than the other way around.
 
 ### 2. Marketing budget: which country?
