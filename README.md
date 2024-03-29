@@ -27,7 +27,7 @@ Let's keep track of each winery's best rating and the total ratings count.
 
 We order by this fancy score again but slightly different, it is a bit more sensitive to the rating than in previous queries: `Rating * LOG(Count * 0.000001 + 1.5)`
 
-* Increase the count multiplier to make he score more sensitive to the count instead.
+Increase the count multiplier to make the score more sensitive to the count instead.
 
 ### 4. Coffee, Toast, Cream, Green Apple and Citrus
 Check out that beautiful list of Champagne tasting wines...
